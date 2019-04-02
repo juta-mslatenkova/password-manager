@@ -1,4 +1,4 @@
-package com.app.data;
+package com.accounts.utils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,7 +14,7 @@ import java.io.File;
  * class aimed to connect to the database
  */
 
-public class DatabaseHelper {
+public class XMLUtil {
 
     public static DocumentBuilder builder;
     public static Document document;
@@ -22,7 +22,7 @@ public class DatabaseHelper {
     public static Element root; // get root node (element) from the xml ("log-pass" in our case)
 
     // private constructor protects class from being instantiated in other classes
-    private DatabaseHelper() {
+    private XMLUtil() {
     }
 
     // instantiate a new document from an xml file
