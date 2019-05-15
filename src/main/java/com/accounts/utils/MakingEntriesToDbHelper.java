@@ -4,7 +4,7 @@ import com.accounts.model.Account;
 
 import java.util.List;
 
-public class DatabaseEntriesCheck {
+public class MakingEntriesToDbHelper {
 
     public static boolean isLoginAndPassComboUnique(Account account, List<Account> accountsList) {
         return !searchForWebsiteAndLoginComboInDatabase(account.getWebsite(), account.getLogin(), accountsList);
@@ -12,10 +12,8 @@ public class DatabaseEntriesCheck {
 
     public static boolean searchForWebsiteAndLoginComboInDatabase(String website2, String login2, List<Account> accountsList) {
         for (int i = 0; i < accountsList.size(); i++) {
-            if (website2.equals(accountsList.get(i).getWebsite())) {
-                if (login2.equals(accountsList.get(i).getLogin())) {
-                    return true;
-                }
+            if (website2.equals(accountsList.get(i).getWebsite()) && login2.equals(accountsList.get(i).getLogin())) {
+                return true;
             }
         }
         return false;
@@ -26,8 +24,6 @@ public class DatabaseEntriesCheck {
     }
 
     public static void printAllFindings(List<Account> accountsList) {
-        for (Account acc : accountsList) {
-            DatabaseEntriesCheck.printDataToConsole(acc);
-        }
+        accountsList.forEach(account -> printDataToConsole(account));
     }
 }

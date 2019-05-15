@@ -1,60 +1,47 @@
 package com.accounts.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class LoadAppProperties {
+public class LoadAppPropertyFile {
 
-    private static String database;
-    private static String action;
-    private static String id;
-    private static String website;
-    private static String login;
-    private static String password;
+    private static Properties properties;
 
-    public LoadAppProperties() {
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("app.properties")) {
-            Properties properties = new Properties();
-
+    static {
+        properties = new Properties();
+        try (InputStream input = LoadAppPropertyFile.class.getClassLoader().getResourceAsStream("app.properties")) {
             // load a properties file
             properties.load(input);
-
-            database = properties.getProperty("database");
-            action = properties.getProperty("action");
-            id = properties.getProperty("id");
-            website = properties.getProperty("website");
-            login = properties.getProperty("login");
-            password = properties.getProperty("password");
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
+    private LoadAppPropertyFile() {
+    }
 
     public static String getDatabase() {
-        return database;
+        return properties.getProperty("database");
     }
 
     public static String getAction() {
-        return action;
+        return properties.getProperty("action");
     }
 
     public static String getId() {
-        return id;
+        return properties.getProperty("id");
     }
 
     public static String getWebsite() {
-        return website;
+        return properties.getProperty("website");
     }
 
     public static String getLogin() {
-        return login;
+        return properties.getProperty("login");
     }
 
     public static String getPassword() {
-        return password;
+        return properties.getProperty("password");
     }
 }

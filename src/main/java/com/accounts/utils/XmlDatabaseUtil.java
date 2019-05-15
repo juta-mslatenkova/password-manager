@@ -14,7 +14,7 @@ import java.io.File;
  * class aimed to connect to the database
  */
 
-public class XMLUtil {
+public class XmlDatabaseUtil {
 
     public static DocumentBuilder builder;
     public static Document document;
@@ -22,7 +22,7 @@ public class XMLUtil {
     public static Element root; // get root node (element) from the xml ("log-pass" in our case)
 
     // private constructor protects class from being instantiated in other classes
-    private XMLUtil() {
+    private XmlDatabaseUtil() {
     }
 
     // instantiate a new document from an xml file

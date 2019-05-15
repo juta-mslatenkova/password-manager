@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 /**
  * Data Access Model Concrete class - responsible for getting data from a datasource
  */
-public class AccountDAOImpl_PostgreSQL implements AccountDAO {
+public class AccountDAOImpl_PostgreSQL_Hibernate implements AccountDAO {
 
     private Account account;
 
