@@ -1,6 +1,7 @@
 package com.accounts.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * Model class - a POJO containing get/set methods to store data retrieved using DAOImpl class
@@ -10,6 +11,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "accounts")
 public class Account {
+
+    public static Account account;
+    public static ArrayList<Account> accountsList;
 
     @Id
     @Column(name = "userId")

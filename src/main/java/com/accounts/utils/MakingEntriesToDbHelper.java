@@ -2,6 +2,7 @@ package com.accounts.utils;
 
 import com.accounts.model.Account;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MakingEntriesToDbHelper {
@@ -25,5 +26,14 @@ public class MakingEntriesToDbHelper {
 
     public static void printAllFindings(List<Account> accountsList) {
         accountsList.forEach(account -> printDataToConsole(account));
+    }
+
+    public static void listOfDataForWeb(Account account) {
+        System.out.println(account.getWebsite() + " - " + account.getLogin() + " - " + account.getPassword());
+        List<String> result = new ArrayList<>();
+        result.add(String.valueOf(account.getId()));
+        result.add(account.getWebsite());
+        result.add(account.getLogin());
+        result.add(account.getPassword());
     }
 }

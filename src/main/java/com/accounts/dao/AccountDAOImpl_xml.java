@@ -11,6 +11,8 @@ import java.util.List;
 
 import static com.accounts.utils.XmlDatabaseUtil.*;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.accounts.model.Account.account;
+import static com.accounts.model.Account.accountsList;
 
 public class AccountDAOImpl_xml implements AccountDAO {
 
@@ -21,9 +23,9 @@ public class AccountDAOImpl_xml implements AccountDAO {
 
     private NodeList nodeList;
 
-    private static Account account;
+    //    public static Account account;
+//    public static ArrayList<Account> accountsList;
     private static int dbEntryId;
-
 
 
     static {
@@ -64,7 +66,7 @@ public class AccountDAOImpl_xml implements AccountDAO {
     }
 
     @Override
-    public Account findById(int id) {
+    public Account findById(long id) {
         checkArgument(isRequestedIdEqualToOneIndb(id), "No account with id = " + id + " was found");
         account = new Account(id, getAccount(dbEntryId).getWebsite(),
                 getAccount(dbEntryId).getLogin(),
@@ -88,10 +90,11 @@ public class AccountDAOImpl_xml implements AccountDAO {
 
         saveDataToXML();
     }
-// TODO return dbEntryId as object
+
+    // TODO return dbEntryId as object
     private boolean isRequestedIdEqualToOneIndb(long id) {
         for (int i = 0; i < nodeList.getLength(); i++) {
-            String entryId  = getDbEntryActualId(i, "id");
+            String entryId = getDbEntryActualId(i, "id");
             // check if actual id equals to the requested id
             if (entryId.equals(String.valueOf(id))) {
 //                account = new Account(i);
@@ -121,7 +124,7 @@ public class AccountDAOImpl_xml implements AccountDAO {
 
     @Override
     public List<Account> findAll() {
-        List<Account> accountsList = new ArrayList<>();
+        accountsList = new ArrayList<>();
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             accountsList.add(getAccount(i));
@@ -135,12 +138,12 @@ public class AccountDAOImpl_xml implements AccountDAO {
     }
 
     private Account getAccount(int id) {
-
+//TODO 'id' field added to return statement for servlet purposes
         String website = getDbEntryActualId(id, WEBSITETAG);
         String login = getDbEntryActualId(id, LOGINTAG);
         String password = getDbEntryActualId(id, PASSWORDTAG);
 
-        return new Account(website, login, password);
+        return new Account(id, website, login, password);
     }
 
 

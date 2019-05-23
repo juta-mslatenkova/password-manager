@@ -12,6 +12,8 @@ import java.util.List;
 
 import static com.accounts.utils.JDBCHelper.getConnection;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.accounts.model.Account.account;
+import static com.accounts.model.Account.accountsList;
 
 public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
 
@@ -27,15 +29,16 @@ public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
     }
 
     // getting Statement (interface used for connecting to the database)
-    private Statement getStatement() throws SQLException{
-            return getConnection().createStatement();
+    private Statement getStatement() throws SQLException {
+        return getConnection().createStatement();
     }
 
 
     @Override
-    public Account findById(int id) {
+    public Account findById(long id) {
         sql = "SELECT userId, website, login, passwords FROM accounts WHERE userId = " + "'" + id + "'";
-        return getDataFromResultSet(getResultSetFromDb(sql));
+        account = getDataFromResultSet(getResultSetFromDb(sql), id);
+        return account;
     }
 
     @Override
@@ -73,10 +76,10 @@ public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
         sql = "SELECT userId, website, login, passwords FROM accounts";
         ResultSet resultSet = getResultSetFromDb(sql);
 
-        List<Account> accountList = new ArrayList<>();
+        accountsList = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                accountList.add(new Account(resultSet.getString("website"),
+                accountsList.add(new Account(resultSet.getString("website"),
                         resultSet.getString("login"),
                         resultSet.getString("passwords")));
             }
@@ -84,7 +87,7 @@ public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
             exception.printStackTrace();
         }
 
-        return accountList;
+        return accountsList;
     }
 
     // method returns set of data obtained from the database
@@ -98,7 +101,7 @@ public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
         return null;
     }
 
-    private static Account getDataFromResultSet(ResultSet resultSet)  {
+    private static Account getDataFromResultSet(ResultSet resultSet, long id) {
         try {
             while (resultSet.next()) {
 
@@ -106,7 +109,7 @@ public class AccountDAOImpl_PostgreSQL_JDBC implements AccountDAO {
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("passwords");
 
-                return new Account(website, login, password);
+                return new Account(id, website, login, password);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();

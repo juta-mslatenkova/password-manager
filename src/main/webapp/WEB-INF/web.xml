@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        version="3.1"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+    <servlet>
+        <servlet-name>findAll</servlet-name>
+        <servlet-class>com.accounts.web.Servlet_findAll</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findAll</servlet-name>
+        <url-pattern>/finddataall</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findById</servlet-name>
+        <servlet-class>com.accounts.web.Servlet_findById</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findById</servlet-name>
+        <url-pattern>/findbyid</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addAccount</servlet-name>
+        <servlet-class>com.accounts.web.Servlet_addAccount</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addAccount</servlet-name>
+        <url-pattern>/addaccount</url-pattern>
+    </servlet-mapping>
+</web-app>

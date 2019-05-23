@@ -5,21 +5,20 @@ import com.accounts.utils.HibernateSessionFactoryUtil;
 import com.accounts.utils.MakingEntriesToDbHelper;
 import org.hibernate.Session;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.hibernate.Transaction;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
+import static com.accounts.model.Account.account;
+import static com.accounts.model.Account.accountsList;
 /**
  * Data Access Model Concrete class - responsible for getting data from a datasource
  */
 public class AccountDAOImpl_PostgreSQL_Hibernate implements AccountDAO {
 
-    private Account account;
-
     @Override
-    public Account findById(int id) {
+    public Account findById(long id) {
         account = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Account.class, id);
         return account;
     }
@@ -45,10 +44,10 @@ public class AccountDAOImpl_PostgreSQL_Hibernate implements AccountDAO {
     }
 
     @Override
-    public List<Account> findAll() {
-        List<Account> accountList = (List<Account>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
+    public ArrayList<Account> findAll() {
+        accountsList = (ArrayList<Account>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
                 .createQuery("FROM Account").list();
-        return accountList;
+        return accountsList;
     }
 
     enum Actions {
