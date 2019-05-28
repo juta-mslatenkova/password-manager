@@ -4,7 +4,6 @@ import com.accounts.model.Account;
 import com.accounts.utils.AccountFactory;
 import com.accounts.utils.ServletUtil;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,26 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.accounts.utils.ServletUtil.displayAll;
+public class Servlet_deleteAccount extends HttpServlet {
 
-public class Servlet_findAll extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
         response.setContentType("text/html");
 
-        String database = request.getParameter("database");
-        String requestedId = "1";
+        String id = request.getParameter("accountId");
 
-        ServletUtil.setPropertiesFile(database, requestedId, "FINDALL");
-
-        System.out.println("database = " + database + " id= " + requestedId);
+        ServletUtil.setPropertiesFile(id, "DELETE");
 
         // now calling the Model class responsible for business logics
         AccountFactory.doAction();
 
-        displayAll(request, response);
+        /*
+         * Calling the findall method to display the updated database data
+         */
+
+        ServletUtil.setPropertiesFile(id, "FINDALL");
+        // now calling the Model class responsible for business logics
+        AccountFactory.doAction();
+
+
+        ArrayList<Account> accountsList = Account.accountsList;
+        request.setAttribute("data", accountsList);
+
+        // defining our view jsp.page
+        request.getRequestDispatcher("result.jsp").forward(request, response);
     }
-
-
 }

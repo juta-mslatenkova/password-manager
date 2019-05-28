@@ -1,5 +1,7 @@
 package com.accounts.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -9,13 +11,7 @@ public class LoadAppPropertyFile {
     private static Properties properties;
 
     static {
-        properties = new Properties();
-        try (InputStream input = LoadAppPropertyFile.class.getClassLoader().getResourceAsStream("app.properties")) {
-            // load a properties file
-            properties.load(input);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        reloadProperties();
     }
 
     private LoadAppPropertyFile() {
@@ -23,6 +19,19 @@ public class LoadAppPropertyFile {
 
     public static String getDatabase() {
         return properties.getProperty("database");
+    }
+
+    public static void reloadProperties() {
+        properties = new Properties();
+        File propertyFile = new File("app.properties");
+        System.out.println(propertyFile.getAbsolutePath());
+//        try (InputStream input = LoadAppPropertyFile.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream input = new FileInputStream(propertyFile)) {
+            // load a properties file
+            properties.load(input);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public static String getAction() {

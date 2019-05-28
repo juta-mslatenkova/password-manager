@@ -3,11 +3,7 @@ package com.accounts.utils;
 import com.accounts.dao.AccountDAO;
 import com.accounts.model.Account;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.accounts.utils.LoadAppPropertyFile.getWebsite;
-import static com.accounts.utils.LoadAppPropertyFile.getAction;
 import static com.accounts.utils.LoadAppPropertyFile.getId;
 import static com.accounts.utils.LoadAppPropertyFile.getLogin;
 import static com.accounts.utils.LoadAppPropertyFile.getPassword;
@@ -15,11 +11,11 @@ import static com.accounts.utils.LoadAppPropertyFile.getPassword;
 
 public class AccountFactory {
 
-    public void getAccount() {
+    public static void doAction() {
 
         AccountDAO accountDAO = DbInitFactory.getDatabase(LoadAppPropertyFile.getDatabase());
 
-        switch (Actions.valueOf(getAction())) {
+        switch (Actions.valueOf(LoadAppPropertyFile.getAction())) {
             case DELETE:
                 accountDAO.delete(new Account(Long.valueOf(getId())));
                 break;
@@ -33,7 +29,7 @@ public class AccountFactory {
                 accountDAO.save(new Account(getWebsite(), getLogin(), getPassword()));
                 break;
             case UPDATE:
-                accountDAO.update(new Account(Integer.valueOf(getId()), getWebsite(), getLogin(), getPassword()));
+                accountDAO.update(new Account(Long.valueOf(getId()), getWebsite(), getLogin(), getPassword()));
                 break;
         }
 

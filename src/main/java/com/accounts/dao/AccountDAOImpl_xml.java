@@ -20,6 +20,7 @@ public class AccountDAOImpl_xml implements AccountDAO {
     public static final String PASSWORDTAG = "password";
     public static final String LOGINTAG = "login";
     public static final String WEBSITETAG = "website";
+    public static final String IDTAG = "id";
 
     private NodeList nodeList;
 
@@ -139,11 +140,13 @@ public class AccountDAOImpl_xml implements AccountDAO {
 
     private Account getAccount(int id) {
 //TODO 'id' field added to return statement for servlet purposes
+        long accountId = Long.valueOf(getDbEntryActualId(id, IDTAG));
         String website = getDbEntryActualId(id, WEBSITETAG);
         String login = getDbEntryActualId(id, LOGINTAG);
         String password = getDbEntryActualId(id, PASSWORDTAG);
 
-        return new Account(id, website, login, password);
+        System.out.println("THe id is " + id + " " + accountId);
+        return new Account(accountId,  website, login, password);
     }
 
 

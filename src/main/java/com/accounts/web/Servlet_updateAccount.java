@@ -10,31 +10,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class Servlet_addAccount extends HttpServlet {
+public class Servlet_updateAccount extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
         response.setContentType("text/html");
 
+        Long id = Long.valueOf(request.getParameter("accountId"));
         String website = request.getParameter("website");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        String database = request.getParameter("database");
 
-        ServletUtil.setPropertiesFile(database, "SAVE", website, login, password);
+        ServletUtil.setPropertiesFile(id, "UPDATE", website, login, password);
 
         // now calling the Model class responsible for business logics
         AccountFactory.doAction();
 
-        ArrayList<Account> accountsList = new ArrayList<>();
-        accountsList.add(new Account(website, login, password));
-        request.setAttribute("data", accountsList);
+        PrintWriter out = response.getWriter();
+        out.println("The data was updated");
 
-        // defining our view jsp.page
-        RequestDispatcher view = request.getRequestDispatcher("result.jsp");
-        view.forward(request, response);
+        /*
+         * Calling the findall method to display the updated database data
+         */
+        ServletUtil.setPropertiesFile(String.valueOf(id), "FINDALL");
+        // now calling the Model class responsible for business logics
+        AccountFactory.doAction();
+
+        ServletUtil.displayAll(request, response);
     }
+
+
 }

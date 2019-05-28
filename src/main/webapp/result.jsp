@@ -1,5 +1,7 @@
 <%@ page import="com.accounts.model.Account" %>
 <%@ page import="java.util.ArrayList" %><%--
+
+
   Created by IntelliJ IDEA.
   User: juta.miscenko
   Date: 2019-05-20
@@ -21,6 +23,7 @@
         <th>website</th>
         <th>login</th>
         <th>password</th>
+        <th style="width:100px">action</th>
     </tr>
 
     <%
@@ -31,7 +34,7 @@
     <%-- Arranging data in tabular form
     --%>
     <tr>
-        <td><%=s.getId()%>
+        <td ><%=s.getId()%>
         </td>
         <td><%=s.getWebsite()%>
         </td>
@@ -39,8 +42,29 @@
         </td>
         <td><%=s.getPassword()%>
         </td>
+        <td>
+            <form method="post" action="deletedata" style="float: left">
+                <input type="hidden" name="accountId" value="<%=s.getId()%>"/>
+                <input type="SUBMIT" value="DELETE">
+            </form>
+            <form action="update-account.jsp" method="GET" style="float: right">
+                <input type="hidden" name="accountId" value="<%=s.getId()%>"/>
+                <input type="hidden" name="accountWebsite" value="<%=s.getWebsite()%>">
+                <input type="hidden" name="accountLogin" value="<%=s.getLogin()%>">
+                <input type="hidden" name="accountPassword" value="<%=s.getPassword()%>">
+                <button
+                        onclick="window.location.href = 'http://localhost:8080/Password_Manager_war_exploded/update-account.jsp';">
+                    UPDATE
+                </button>
+            </form>
+        </td>
     </tr>
     <%}%>
 </table>
+<br>
+<button style="height:28px; font-size: 14px"
+        onclick="history.back()">Go Back
+</button>
+
 </body>
 </html>

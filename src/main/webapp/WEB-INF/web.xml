@@ -34,4 +34,24 @@
         <servlet-name>addAccount</servlet-name>
         <url-pattern>/addaccount</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteData</servlet-name>
+        <servlet-class>com.accounts.web.Servlet_deleteAccount</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteData</servlet-name>
+        <url-pattern>/deletedata</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateData</servlet-name>
+        <servlet-class>com.accounts.web.Servlet_updateAccount</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateData</servlet-name>
+        <url-pattern>/updatedata</url-pattern>
+    </servlet-mapping>
 </web-app>

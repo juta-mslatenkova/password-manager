@@ -21,14 +21,11 @@ public class Servlet_findById extends HttpServlet {
 
         String database = request.getParameter("database");
         String requestedId = request.getParameter("id");
-        String action = "FINDBYID";
 
-        ServletUtil.setPropertiesFile(database, requestedId, action);
-
-        System.out.println("database = " + database + " id= " + requestedId);
+        ServletUtil.setPropertiesFile(database, requestedId, "FINDBYID");
 
         // now calling the Model class responsible for business logics
-        new AccountFactory().getAccount();
+        AccountFactory.doAction();
 
         long id = Account.account.getId();
         String website = Account.account.getWebsite();

@@ -18,12 +18,22 @@
     <input type="website" name="website" placeholder="website">
     <input type="login" name="login" placeholder="login">
     <input type="password" name="password" placeholder="password">
+    <%--<input type="SUBMIT">--%>
+
+    <select name="database" size="1">
+        <option value="none" selected disabled hidden>
+            select database
+        </option>
+        <option value="XML">XML</option>
+        <option value="POSTGRESQL_HIBERNATE">POSTGRESQL_HIBERNATE</option>
+        <option value="POSTGRESQL_JDBC">POSTGRESQL_JDBC</option>
+    </select>
     <input type="SUBMIT">
 </form>
 
 <br>
 <button style="height:28px; font-size: 14px"
-        onclick="window.location.href = 'http://localhost:8080/Password_Manager_war_exploded/index.jsp';">Go Back
+        onclick="history.back()">Go Back
 </button>
 
 </body>
